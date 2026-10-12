@@ -1,18 +1,17 @@
-"""Load local source documents, chunk them, embed them, and store them in Chroma."""
-from pathlib import Path
-import shutil
 
-import chromadb
-from sentence_transformers import SentenceTransformer
+"""Load documents, split them into chunks, and build a lightweight TF-IDF index."""
+from pathlib import Path
+import json
+import re
+
 from pypdf import PdfReader
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 ROOT = Path(__file__).parent
 DOCS = ROOT / "documents"
-DB_DIR = ROOT / "chroma_db"
-COLLECTION_NAME = "rag_documents"
+INDEX_FILE = ROOT / "tfidf_index.json"
 CHUNK_WORDS = 550
 OVERLAP_WORDS = 80
-EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 SUPPORTED = {".txt", ".md", ".pdf"}
 
 
@@ -29,10 +28,8 @@ def read_document(path: Path):
             yield text
 
 
-def chunk_text(text: str, size: int = CHUNK_WORDS, overlap: int = OVERLAP_WORDS):
+def chunk_text(text, size=CHUNK_WORDS, overlap=OVERLAP_WORDS):
     words = text.split()
-    if not words:
-        return []
     chunks = []
     step = max(1, size - overlap)
     for start in range(0, len(words), step):
@@ -45,7 +42,10 @@ def chunk_text(text: str, size: int = CHUNK_WORDS, overlap: int = OVERLAP_WORDS)
 
 
 def main():
-    paths = sorted(p for p in DOCS.rglob("*") if p.is_file() and p.suffix.lower() in SUPPORTED)
+    paths = sorted(
+        p for p in DOCS.rglob("*")
+        if p.is_file() and p.suffix.lower() in SUPPORTED
+    )
     if not paths:
         raise SystemExit(f"No .txt, .md, or .pdf files found in {DOCS}")
 
@@ -64,30 +64,28 @@ def main():
     if not records:
         raise SystemExit("No readable text found. Check your documents.")
 
-    print(f"Loading embedding model: {EMBEDDING_MODEL}")
-    model = SentenceTransformer(EMBEDDING_MODEL)
-    embeddings = model.encode([r["text"] for r in records], normalize_embeddings=True, show_progress_bar=True)
-    if DB_DIR.exists():
-        shutil.rmtree(DB_DIR)
-    client = chromadb.PersistentClient(path=str(DB_DIR))
-    collection = client.get_or_create_collection(
-        name=COLLECTION_NAME,
-        metadata={"hnsw:space": "cosine"},
+    vectorizer = TfidfVectorizer(
+        lowercase=True,
+        stop_words="english",
+        ngram_range=(1, 2),
+        max_features=30000,
+        token_pattern=r"(?u)\b[a-zA-Z][a-zA-Z0-9_-]+\b",
     )
-    batch_size = 64
-    for start in range(0, len(records), batch_size):
-        batch = records[start:start + batch_size]
-        vectors = embeddings[start:start + batch_size].tolist()
-        collection.add(
-            ids=[r["id"] for r in batch],
-            documents=[r["text"] for r in batch],
-            metadatas=[{"source": r["source"], "chunk": r["chunk"], "section": r["section"]} for r in batch],
-            embeddings=vectors,
-        )
-    total_words = sum(len(r["text"].split()) for r in records)
+    matrix = vectorizer.fit_transform([r["text"] for r in records])
+
+    index_data = {
+        "records": records,
+        "vocabulary": {k: int(v) for k, v in vectorizer.vocabulary_.items()},
+        "idf": vectorizer.idf_.tolist(),
+        "matrix": matrix.toarray().tolist(),
+    }
+    INDEX_FILE.write_text(
+        json.dumps(index_data),
+        encoding="utf-8",
+    )
+
     print(f"Indexed {len(records)} chunks from {len(paths)} documents.")
-    print(f"Approximate indexed words (including overlap): {total_words:,}")
-    print(f"Chroma database saved to: {DB_DIR}")
+    print(f"Saved lightweight TF-IDF index to: {INDEX_FILE}")
 
 
 if __name__ == "__main__":

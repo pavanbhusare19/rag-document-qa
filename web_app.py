@@ -1,17 +1,16 @@
 
 from pathlib import Path
+import json
 import os
 
-import chromadb
 from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template_string, request
 from groq import Groq
-from sentence_transformers import SentenceTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 ROOT = Path(__file__).parent
-DB_DIR = ROOT / "chroma_db"
-COLLECTION_NAME = "rag_documents"
-EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+INDEX_FILE = ROOT / "tfidf_index.json"
 TOP_K = 4
 
 SYSTEM_PROMPT = """You are a careful document question-answering assistant.
@@ -28,12 +27,25 @@ api_key = os.getenv("GROQ_API_KEY", "").strip()
 if not api_key or api_key == "paste_your_groq_api_key_here":
     raise RuntimeError("Set GROQ_API_KEY in your .env file.")
 
-if not DB_DIR.exists():
-    raise RuntimeError("No Chroma index found. Run python ingest.py first.")
+if not INDEX_FILE.exists():
+    raise RuntimeError("No TF-IDF index found. Run python ingest.py first.")
 
-client = chromadb.PersistentClient(path=str(DB_DIR))
-collection = client.get_collection(COLLECTION_NAME)
-embedder = SentenceTransformer(EMBEDDING_MODEL)
+index_data = json.loads(INDEX_FILE.read_text(encoding="utf-8"))
+records = index_data["records"]
+
+vectorizer = TfidfVectorizer(
+    lowercase=True,
+    stop_words="english",
+    ngram_range=(1, 2),
+    max_features=30000,
+    token_pattern=r"(?u)\b[a-zA-Z][a-zA-Z0-9_-]+\b",
+    vocabulary=index_data["vocabulary"],
+)
+vectorizer.idf_ = __import__("numpy").array(index_data["idf"])
+vectorizer._tfidf._idf_diag = __import__("scipy").sparse.diags(
+    vectorizer.idf_, offsets=0, format="csr"
+)
+document_matrix = __import__("numpy").array(index_data["matrix"])
 groq_client = Groq(api_key=api_key)
 model_name = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
@@ -84,7 +96,6 @@ const input=document.getElementById('question');
 const chat=document.getElementById('chat');
 const status=document.getElementById('status');
 const send=document.getElementById('send');
-
 function addMessage(text,kind){
  const el=document.createElement('div');
  el.className='msg '+kind;
@@ -92,7 +103,6 @@ function addMessage(text,kind){
  chat.appendChild(el);
  chat.scrollTop=chat.scrollHeight;
 }
-
 form.addEventListener('submit',async(event)=>{
  event.preventDefault();
  const question=input.value.trim();
@@ -131,7 +141,7 @@ def home():
 
 @app.get("/api/health")
 def health():
-    return jsonify({"status": "ok", "indexed_chunks": collection.count()})
+    return jsonify({"status": "ok", "indexed_chunks": len(records)})
 
 
 @app.post("/api/chat")
@@ -145,29 +155,23 @@ def chat():
         return jsonify({"error": "Question must be 2000 characters or fewer."}), 400
 
     try:
-        embedding = embedder.encode(
-            [question], normalize_embeddings=True
-        )[0].tolist()
-        results = collection.query(
-            query_embeddings=[embedding],
-            n_results=min(TOP_K, collection.count()),
-            include=["documents", "metadatas", "distances"],
-        )
-        docs = results.get("documents", [[]])[0]
-        metas = results.get("metadatas", [[]])[0]
+        query_vector = vectorizer.transform([question])
+        scores = cosine_similarity(query_vector, document_matrix).ravel()
+        best_indices = scores.argsort()[::-1][:TOP_K]
+        selected = [i for i in best_indices if scores[i] > 0]
 
-        if not docs:
+        if not selected:
             return jsonify({
                 "answer": "I could not find relevant passages in the indexed documents."
             })
 
         context_parts = []
         sources = []
-        for doc, meta in zip(docs, metas):
-            source = meta.get("source", "unknown")
-            chunk_no = meta.get("chunk", "?")
+        for idx in selected:
+            rec = records[int(idx)]
+            source = rec["source"]
             context_parts.append(
-                f"[Source: {source}; chunk: {chunk_no}]\n{doc}"
+                f"[Source: {source}; chunk: {rec['chunk']}]\n{rec['text']}"
             )
             if source not in sources:
                 sources.append(source)
