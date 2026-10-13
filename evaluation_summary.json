@@ -1,0 +1,12 @@
+{
+  "dataset_cases": 20,
+  "successful_cases": 19,
+  "failed_cases": 1,
+  "method": "Custom Groq LLM-as-judge; scores are estimates, not official RAGAS metrics.",
+  "average_scores": {
+    "faithfulness": 0.9826,
+    "answer_relevancy": 0.8821,
+    "context_precision": 0.3158
+  },
+  "expected_source_hit_rate": 0.8421
+}

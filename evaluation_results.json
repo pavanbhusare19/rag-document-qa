@@ -1,0 +1,358 @@
+[
+  {
+    "id": 1,
+    "question": "Why are virtual environments useful in Python?",
+    "reference_answer": "They isolate project dependencies, help avoid version conflicts, and make project setups reproducible.",
+    "answerable": true,
+    "answer": "Virtual environments are useful because they **isolate a project’s dependencies from those of other Python projects**. By creating a separate environment (e.g., with `python -m venv .venv`) you can install exactly the packages a project needs, keep a dependency file for reproducible setup, and avoid version or package conflicts across different projects【01_python_fundamentals.md】.",
+    "retrieved_sources": [
+      "01_python_fundamentals.md",
+      "03_files_errors_modules.md"
+    ],
+    "expected_sources": [
+      "01_python_fundamentals.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.97,
+    "context_precision": 0.5
+  },
+  {
+    "id": 2,
+    "question": "What is the difference between a list and a tuple in Python?",
+    "reference_answer": "A list is ordered and mutable, while a tuple is ordered and immutable.",
+    "answerable": true,
+    "answer": "A list and a tuple are both ordered collections that can hold mixed‑type elements, but they differ in mutability.  \n\n* **List** – ordered **mutable** collection; you can add, remove or change items (e.g., using `append`). It’s suited for data that may change over time.  \n* **Tuple** – ordered **immutable** collection; once created its contents cannot be altered, making it useful for fixed groups of values.  \n\nBoth can contain any types, though keeping element types consistent improves readability. 【02_data_structures_and_functions.md】",
+    "retrieved_sources": [
+      "01_python_fundamentals.md",
+      "02_data_structures_and_functions.md",
+      "03_files_errors_modules.md"
+    ],
+    "expected_sources": [
+      "02_data_structures_and_functions.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.97,
+    "context_precision": 0.25
+  },
+  {
+    "id": 3,
+    "question": "What happens when a dictionary key is missing, and how can it be handled?",
+    "reference_answer": "Using mapping[key] raises KeyError if the key is absent. Use mapping.get(key) when a missing key is expected, or validate required keys explicitly.",
+    "answerable": true,
+    "answer": "When you try to retrieve a value with the subscript syntax (`mapping[key]`) and the key isn’t present, Python raises a **`KeyError`**.  \nTo deal with a missing key you can:\n\n* Use the dictionary’s **`get`** method, which returns `None` (or a supplied default) instead of raising an exception.  \n* Explicitly check for required keys beforehand and raise a custom error or handle the situation as needed.\n\nThese approaches let you treat an absent key as an expected case rather than letting the program crash. 【02_data_structures_and_functions.md】",
+    "retrieved_sources": [
+      "01_python_fundamentals.md",
+      "02_data_structures_and_functions.md",
+      "03_files_errors_modules.md"
+    ],
+    "expected_sources": [
+      "02_data_structures_and_functions.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.95,
+    "context_precision": 0.25
+  },
+  {
+    "id": 4,
+    "question": "What is the difference between a queue and a stack?",
+    "reference_answer": "A queue processes items in first-in, first-out order, while a stack processes items in last-in, first-out order.",
+    "answerable": true,
+    "answer": "I could not find that information in the indexed documents.",
+    "retrieved_sources": [
+      "01_python_fundamentals.md",
+      "04_testing_and_retrieval.md"
+    ],
+    "expected_sources": [
+      "02_data_structures_and_functions.md"
+    ],
+    "expected_source_hit": false,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.0,
+    "context_precision": 0.0
+  },
+  {
+    "id": 5,
+    "question": "What requirement does binary search have, and what is its typical time complexity?",
+    "reference_answer": "Binary search requires sorted data and has O(log n) time complexity because it halves the remaining search range at each step.",
+    "answerable": true,
+    "answer": "Binary search works only on **sorted** data, repeatedly halving the remaining search interval. Its typical running time is **O(log n)**, since each step cuts the search space in half【02_data_structures_and_functions.md】.",
+    "retrieved_sources": [
+      "02_data_structures_and_functions.md",
+      "03_files_errors_modules.md",
+      "04_testing_and_retrieval.md"
+    ],
+    "expected_sources": [
+      "02_data_structures_and_functions.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 1.0,
+    "context_precision": 0.25
+  },
+  {
+    "id": 6,
+    "question": "What does it mean that Python sorting is stable?",
+    "reference_answer": "Items with equal sort keys preserve their previous relative order.",
+    "answerable": true,
+    "answer": "I could not find that information in the indexed documents.",
+    "retrieved_sources": [
+      "01_python_fundamentals.md",
+      "03_files_errors_modules.md"
+    ],
+    "expected_sources": [
+      "02_data_structures_and_functions.md"
+    ],
+    "expected_source_hit": false,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.0,
+    "context_precision": 0.0
+  },
+  {
+    "id": 7,
+    "question": "How can a set help detect duplicate values in Python?",
+    "reference_answer": "Track previously seen values in a set. If a value is already present, it is a duplicate; otherwise, add it to the set.",
+    "answerable": true,
+    "answer": "A set stores only unique elements and provides O(1) membership tests, so it can be used to spot repeats while iterating through a sequence.  \nTypical pattern:\n\n```python\nseen = set()\nduplicates = []\nfor value in values:\n    if value in seen:          # already in the set → duplicate\n        duplicates.append(value)\n    else:\n        seen.add(value)        # first time we see it\n```\n\nThe `seen` set records each value the first time it appears; any subsequent encounter (`value in seen`) signals a duplicate, which can be collected or acted on. This technique is highlighted in the duplicate‑detection example of the data‑structures notes【02_data_structures_and_functions.md】.",
+    "retrieved_sources": [
+      "01_python_fundamentals.md",
+      "02_data_structures_and_functions.md",
+      "03_files_errors_modules.md"
+    ],
+    "expected_sources": [
+      "02_data_structures_and_functions.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 1.0,
+    "context_precision": 0.5
+  },
+  {
+    "id": 8,
+    "question": "What two things does a recursive function need to avoid endless recursion?",
+    "reference_answer": "It needs a base case and progress toward that base case.",
+    "answerable": true,
+    "answer": "A recursive function must have **a base case** and **progress toward that base case**; without both it can recurse indefinitely. 【02_data_structures_and_functions.md】",
+    "retrieved_sources": [
+      "01_python_fundamentals.md",
+      "02_data_structures_and_functions.md",
+      "04_testing_and_retrieval.md"
+    ],
+    "expected_sources": [
+      "02_data_structures_and_functions.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 1.0,
+    "context_precision": 0.25
+  },
+  {
+    "id": 9,
+    "question": "Why should Python files often be opened using a with statement?",
+    "reference_answer": "A with block ensures the file is closed even if an error occurs.",
+    "answerable": true,
+    "answer": "Python’s `open()` returns a file object that must be closed when you’re done. Using a `with` statement creates a context manager that automatically closes the file as soon as the block ends, even if an exception is raised inside the block. This guarantees the file handle is released and prevents resource leaks. 【03_files_errors_modules.md】",
+    "retrieved_sources": [
+      "01_python_fundamentals.md",
+      "03_files_errors_modules.md"
+    ],
+    "expected_sources": [
+      "03_files_errors_modules.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 1.0,
+    "context_precision": 0.25
+  },
+  {
+    "id": 10,
+    "question": "How should API keys be stored and handled in a project?",
+    "reference_answer": "Use environment variables or a local .env file excluded from version control. Provide safe placeholders in .env.example and never expose real credentials.",
+    "answerable": true,
+    "answer": "API keys should be kept out of the codebase and any client‑side code. Store them in environment variables (or a similar secret‑management system) and never commit them to source files or embed them in browser code. Also make sure that logs do not print credentials or other private data. (Source: **05_campuslab_case_study.md**)",
+    "retrieved_sources": [
+      "01_python_fundamentals.md",
+      "02_data_structures_and_functions.md",
+      "05_campuslab_case_study.md"
+    ],
+    "expected_sources": [
+      "03_files_errors_modules.md"
+    ],
+    "expected_source_hit": false,
+    "faithfulness": 1.0,
+    "answer_relevancy": 1.0,
+    "context_precision": 0.25
+  },
+  {
+    "id": 11,
+    "question": "Why can catching Exception across an entire application be problematic?",
+    "error": "APIConnectionError: Connection error."
+  },
+  {
+    "id": 12,
+    "question": "Why might scanned PDFs need OCR during document processing?",
+    "reference_answer": "Scanned PDFs may contain images instead of selectable text. OCR can extract text from those images, although it may introduce recognition errors.",
+    "answerable": true,
+    "answer": "Scanned PDFs often contain only images of pages, so there is no selectable text for a parser to extract. To turn the visual characters into searchable, indexable text you must run an OCR (optical‑character‑recognition) step. This OCR pass is separate from normal text extraction and can introduce recognition errors. 【03_files_errors_modules.md】",
+    "retrieved_sources": [
+      "03_files_errors_modules.md",
+      "04_testing_and_retrieval.md"
+    ],
+    "expected_sources": [
+      "03_files_errors_modules.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 0.67,
+    "answer_relevancy": 1.0,
+    "context_precision": 0.5
+  },
+  {
+    "id": 13,
+    "question": "What sensitive information should application logs avoid exposing?",
+    "reference_answer": "Logs should avoid passwords, access tokens, unnecessary personal data, and sensitive user content without a clear reviewed need.",
+    "answerable": true,
+    "answer": "Application logs should be kept free of any sensitive data. They must not record credentials such as passwords, API keys or access tokens, nor should they contain private user submissions or other unnecessary personal information. In short, logs should avoid exposing passwords, tokens, other credentials, and any personal or private user content. 【05_campuslab_case_study.md】【02_data_structures_and_functions.md】",
+    "retrieved_sources": [
+      "02_data_structures_and_functions.md",
+      "03_files_errors_modules.md",
+      "05_campuslab_case_study.md"
+    ],
+    "expected_sources": [
+      "03_files_errors_modules.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.95,
+    "context_precision": 0.75
+  },
+  {
+    "id": 14,
+    "question": "What is retrieval-augmented generation (RAG)?",
+    "reference_answer": "RAG retrieves relevant passages from a supplied corpus and includes them in a language model prompt so the model can generate an answer based on that evidence.",
+    "answerable": true,
+    "answer": "Retrieval‑augmented generation (RAG) is an approach that combines a language model with an information‑retrieval step. Instead of relying solely on the model’s internal knowledge, the system first searches a supplied corpus, pulls in relevant passages, and includes those passages in the prompt so the model can generate its answer based on that evidence. This can improve answers for private, recent, or domain‑specific material, though it does not guarantee correctness【04_testing_and_retrieval.md】.",
+    "retrieved_sources": [
+      "04_testing_and_retrieval.md",
+      "05_campuslab_case_study.md"
+    ],
+    "expected_sources": [
+      "04_testing_and_retrieval.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 1.0,
+    "context_precision": 0.5
+  },
+  {
+    "id": 15,
+    "question": "What is the purpose of overlap between neighbouring document chunks?",
+    "reference_answer": "Overlap helps preserve context across chunk boundaries, but excessive overlap increases storage and can return near-duplicate passages.",
+    "answerable": true,
+    "answer": "The overlap is added so that when a document is split into chunks, the surrounding text that falls at the edge of one chunk is also included in the next one. This preserves context across chunk boundaries, helping the retrieval system retain meaning that would otherwise be lost. 【04_testing_and_retrieval.md】",
+    "retrieved_sources": [
+      "03_files_errors_modules.md",
+      "04_testing_and_retrieval.md"
+    ],
+    "expected_sources": [
+      "04_testing_and_retrieval.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 1.0,
+    "context_precision": 0.25
+  },
+  {
+    "id": 16,
+    "question": "How are an embedding model and a vector store different?",
+    "reference_answer": "An embedding model converts text into numeric vectors, while a vector store manages vector storage, metadata, and retrieval.",
+    "answerable": true,
+    "answer": "An embedding model’s job is to turn a piece of text into a numeric vector that captures its meaning. The vector store (or vector database) is a separate component that keeps those vectors (along with any metadata) and provides the similarity‑search operations needed to retrieve the most relevant chunks. In short, the embedding model defines the representation, while the vector store handles storage and retrieval of those representations【04_testing_and_retrieval.md】.",
+    "retrieved_sources": [
+      "02_data_structures_and_functions.md",
+      "04_testing_and_retrieval.md",
+      "05_campuslab_case_study.md"
+    ],
+    "expected_sources": [
+      "04_testing_and_retrieval.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 1.0,
+    "context_precision": 0.25
+  },
+  {
+    "id": 17,
+    "question": "What are the trade-offs of choosing a low or high top-k value in retrieval?",
+    "reference_answer": "A low k may omit needed evidence, while a high k may add irrelevant context and consume prompt space.",
+    "answerable": true,
+    "answer": "Choosing the number of chunks to return (the **top‑k** value) involves a trade‑off:\n\n* **Low k** – only the few most similar passages are returned. This keeps the prompt short and reduces the chance of feeding irrelevant text to the generator, but it also risks **missing the evidence** needed to answer the question, lowering recall.  \n* **High k** – more passages are returned. This improves the chance that the needed evidence is present, but it can bring in **irrelevant or noisy chunks**, consume more prompt tokens, and may hurt answer quality or increase latency.\n\nThese points are described in the “Retrieval strategies” section of **04_testing_and_retrieval.md**.",
+    "retrieved_sources": [
+      "02_data_structures_and_functions.md",
+      "04_testing_and_retrieval.md"
+    ],
+    "expected_sources": [
+      "04_testing_and_retrieval.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.96,
+    "context_precision": 0.25
+  },
+  {
+    "id": 18,
+    "question": "What should a grounded RAG system do when retrieved evidence is insufficient?",
+    "reference_answer": "It should state that the information was not found instead of inventing details, and cite supporting sources when possible.",
+    "answerable": true,
+    "answer": "A grounded RAG system should **respond honestly that the information was not found** when the retrieved passages do not contain enough evidence. The generation prompt must tell the model to answer only when the evidence supports the claim and to say that the information was not found when the context is insufficient【04_testing_and_retrieval.md】. Likewise, a robust application should expose the retrieved evidence for debugging and return an honest “not‑found” response when needed【04_testing_and_retrieval.md】.",
+    "retrieved_sources": [
+      "03_files_errors_modules.md",
+      "04_testing_and_retrieval.md",
+      "05_campuslab_case_study.md"
+    ],
+    "expected_sources": [
+      "04_testing_and_retrieval.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.96,
+    "context_precision": 0.5
+  },
+  {
+    "id": 19,
+    "question": "What is the internal codename used for the October evaluation in the CampusLab case study?",
+    "reference_answer": "The internal codename is Maple Finch.",
+    "answerable": true,
+    "answer": "The internal codename used for the October evaluation is **Maple Finch**【05_campuslab_case_study.md】.",
+    "retrieved_sources": [
+      "04_testing_and_retrieval.md",
+      "05_campuslab_case_study.md"
+    ],
+    "expected_sources": [
+      "05_campuslab_case_study.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 1.0,
+    "context_precision": 0.5
+  },
+  {
+    "id": 20,
+    "question": "What is the real student ID of the first CampusLab participant?",
+    "reference_answer": "The information is not available. CampusLab is a fictional demonstration system with no real student accounts or actual personal records.",
+    "answerable": false,
+    "answer": "I could not find that information in the indexed documents.",
+    "retrieved_sources": [
+      "02_data_structures_and_functions.md",
+      "05_campuslab_case_study.md"
+    ],
+    "expected_sources": [
+      "05_campuslab_case_study.md"
+    ],
+    "expected_source_hit": true,
+    "faithfulness": 1.0,
+    "answer_relevancy": 1.0,
+    "context_precision": 0.0
+  }
+]

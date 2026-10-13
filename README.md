@@ -26,20 +26,20 @@ Run each command from the project folder:
 
 ```powershell
 python -m venv .venv
-.\\\\\\\\.venv\\\\\\\\Scripts\\\\\\\\Activate.ps1
+.\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.venv\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Scripts\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Activate.ps1
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 Copy-Item .env.example .env
 ```
 
-Open `.env` in a text editor and replace `paste\\\\\\\_your\\\\\\\_groq\\\\\\\_api\\\\\\\_key\\\\\\\_here` with your own key. Keep `.env` private.
+Open `.env` in a text editor and replace `paste\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_your\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_groq\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_api\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_key\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_here` with your own key. Keep `.env` private.
 
 If PowerShell blocks virtual-environment activation, you can instead run the environment's Python directly:
 
 ```powershell
-.\\\\\\\\.venv\\\\\\\\Scripts\\\\\\\\python.exe -m pip install -r requirements.txt
-.\\\\\\\\.venv\\\\\\\\Scripts\\\\\\\\python.exe ingest.py
-.\\\\\\\\.venv\\\\\\\\Scripts\\\\\\\\python.exe app.py
+.\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.venv\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Scripts\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\python.exe -m pip install -r requirements.txt
+.\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.venv\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Scripts\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\python.exe ingest.py
+.\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.venv\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Scripts\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\python.exe app.py
 ```
 
 ## Index the documents
@@ -48,7 +48,7 @@ If PowerShell blocks virtual-environment activation, you can instead run the env
 python ingest.py
 ```
 
-The first run downloads the embedding model, so it may take several minutes. The script creates `chroma\\\\\\\_db/`, which is generated local data and is excluded from Git.
+The first run downloads the embedding model, so it may take several minutes. The script creates `chroma\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_db/`, which is generated local data and is excluded from Git.
 
 To add your own files, place `.md`, `.txt`, or text-based `.pdf` files under `documents/`, then rerun `python ingest.py`. Re-ingestion rebuilds the local index from all supported files.
 
@@ -70,7 +70,7 @@ The app prints source filenames, chunk numbers, distances, and retrieved text so
 
 ## RAG vs plain LLM comparison (required evidence)
 
-Use the private fictional fact in `documents/05\\\\\\\_campuslab\\\\\\\_case\\\\\\\_study.md`. To make the comparison fair, ask the exact same question in a plain LLM chat with no project documents attached, then ask it through this RAG application.
+Use the private fictional fact in `documents/05\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_campuslab\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_case\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_study.md`. To make the comparison fair, ask the exact same question in a plain LLM chat with no project documents attached, then ask it through this RAG application.
 
 **Question:** “What was the internal codename for the October evaluation in the CampusLab case study?”
 
@@ -84,7 +84,7 @@ Use the private fictional fact in `documents/05\\\\\\\_campuslab\\\\\\\_case\\\\
 |Field|Plain LLM baseline|RAG application|
 |-|-|-|
 |Date tested|Not run yet|Not run yet|
-|Model|Fill in actual model|`GROQ\\\\\\\_MODEL` value from `.env`|
+|Model|Fill in actual model|`GROQ\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_MODEL` value from `.env`|
 |Actual output|Paste exact output here|Paste exact answer here|
 |Evidence|No document supplied|Paste source filename and chunk number|
 |Assessment|Did it know the private fact?|Did retrieved evidence support the answer?|
@@ -95,7 +95,7 @@ Use the private fictional fact in `documents/05\\\\\\\_campuslab\\\\\\\_case\\\\
 
 After running both tests, complete this in your own words:
 
-> I asked both systems the same question without giving the baseline model access to the CampusLab source. The plain model answered: “...”. The RAG system answered: “...” and retrieved `...` (chunk `...`). The retrieved passage \\\\\\\[did/did not] explicitly support the answer. This test \\\\\\\[did/did not] demonstrate an advantage from access to the document for this question. One limitation is that this is a small fictional corpus and a single question is not a full evaluation.
+> I asked both systems the same question without giving the baseline model access to the CampusLab source. The plain model answered: “...”. The RAG system answered: “...” and retrieved `...` (chunk `...`). The retrieved passage \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\[did/did not] explicitly support the answer. This test \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\[did/did not] demonstrate an advantage from access to the document for this question. One limitation is that this is a small fictional corpus and a single question is not a full evaluation.
 
 ## Project structure
 
@@ -108,11 +108,11 @@ rag-document-qa/
 ├── .gitignore
 ├── README.md
 └── documents/
-    ├── 01\\\\\\\_python\\\\\\\_fundamentals.md
-    ├── 02\\\\\\\_data\\\\\\\_structures\\\\\\\_and\\\\\\\_functions.md
-    ├── 03\\\\\\\_files\\\\\\\_errors\\\\\\\_modules.md
-    ├── 04\\\\\\\_testing\\\\\\\_and\\\\\\\_retrieval.md
-    └── 05\\\\\\\_campuslab\\\\\\\_case\\\\\\\_study.md
+    ├── 01\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_python\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_fundamentals.md
+    ├── 02\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_data\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_structures\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_and\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_functions.md
+    ├── 03\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_files\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_errors\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_modules.md
+    ├── 04\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_testing\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_and\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_retrieval.md
+    └── 05\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_campuslab\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_case\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_study.md
 ```
 
 ## Push to GitHub
@@ -125,15 +125,15 @@ git add .
 git status
 git commit -m "Build RAG document question answering project"
 git branch -M main
-git remote add origin https://github.com/YOUR\\\\\\\_GITHUB\\\\\\\_USERNAME/rag-document-qa.git
+git remote add origin https://github.com/YOUR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_GITHUB\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_USERNAME/rag-document-qa.git
 git push -u origin main
 ```
 
-Before `git add`, verify `.env` is not present in the staged files. Replace `YOUR\\\\\\\_GITHUB\\\\\\\_USERNAME` with your GitHub username. After pushing, open the repository in a browser and verify the README and documents are visible.
+Before `git add`, verify `.env` is not present in the staged files. Replace `YOUR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_GITHUB\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_USERNAME` with your GitHub username. After pushing, open the repository in a browser and verify the README and documents are visible.
 
 ## Troubleshooting
 
-* **`GROQ\\\\\\\_API\\\\\\\_KEY` missing:** create `.env` from `.env.example` and add your own key.
+* **`GROQ\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_API\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_KEY` missing:** create `.env` from `.env.example` and add your own key.
 * **No Chroma index:** run `python ingest.py` before `python app.py`.
 * **Model download fails:** check internet connectivity and disk space; try again.
 * **Package installation fails:** confirm Python version and that the virtual environment is active.
@@ -142,7 +142,7 @@ Before `git add`, verify `.env` is not present in the staged files. Replace `YOU
 
 ## Limitations
 
-This is an educational prototype, not a production service. The word-based chunker is approximate, PDF extraction may lose layout, and no formal automated evaluation suite is included. Retrieval can return irrelevant chunks, and a language model can still make mistakes. Always inspect the evidence and report only measurements you actually ran.
+This is an educational prototype, not a production service. The project includes a custom evaluation script, but it is not a formal RAGAS benchmark. The word-based chunker is approximate, PDF extraction may lose layout, and retrieval can return irrelevant chunks. A language model can still make mistakes. Always inspect retrieved evidence and report only measurements actually obtained.
 
 
 
@@ -164,7 +164,7 @@ The plain LLM could not verify the codename because the CampusLab case study doc
 
 \### RAG System Result
 
-The RAG system retrieved relevant information from `05\\\\\\\_campuslab\\\\\\\_case\\\\\\\_study.md` and returned the codename: \*\*Maple Finch\*\*.
+The RAG system retrieved relevant information from `05\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_campuslab\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_case\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_study.md` and returned the codename: \*\*Maple Finch\*\*.
 
 
 
@@ -187,4 +187,90 @@ The RAG system can retrieve relevant information from the provided documents and
 \- `evidence/Screenshot 2026-10-10 211432.png` — Acceptance target answer.
 
 \- `evidence/Screenshot 2026-10-10 212927.png` — Not-found policy answer.
+
+\## RAG Evaluation Results
+
+
+
+\### Evaluation Method
+
+
+
+The project was evaluated using a dataset of 20 test cases covering Python fundamentals, data structures, file handling, and RAG retrieval. A custom Groq LLM-as-judge evaluator measured answer faithfulness, answer relevancy, and the relevance of retrieved passages. Expected source hit rate was also calculated.
+
+
+
+\*\*Evaluation date:\*\* October 13, 2026
+
+\*\*Judge model:\*\* `openai/gpt-oss-120b`
+
+\*\*Evaluation method:\*\* Custom LLM-as-judge; these are estimates, not official RAGAS metrics.
+
+
+
+\### Results
+
+
+
+| Metric | Result |
+
+|---|---:|
+
+| Total test cases | 20 |
+
+| Successful evaluations | 19 |
+
+| Failed evaluations | 1 |
+
+| Average faithfulness | 98.26% |
+
+| Average answer relevancy | 88.21% |
+
+| Average context precision | 31.58% |
+
+| Expected source hit rate | 84.21% |
+
+
+
+The averages and source hit rate are calculated over the 19 successfully evaluated cases. Context precision represents the fraction of retrieved passages judged relevant to the question.
+
+
+
+\### Evaluation Findings
+
+
+
+The evaluator generally rated answers as faithful to the retrieved context. Answer relevancy was also high on average. However, context precision was comparatively low, indicating that some retrieved passages were not useful for answering their questions. Retrieval quality should be improved and tested further.
+
+
+
+One test case failed because of an API connection error. A subsequent retry was blocked by the Groq token-per-day rate limit. The failed case is not included in the reported metric averages.
+
+
+
+\### Evaluation Files
+
+
+
+\- `evaluation\\\_dataset.json` — test questions, reference answers, and expected source information.
+
+\- `evaluate\\\_rag.py` — runs the evaluation and saves detailed results and a summary.
+
+\- `evaluation\\\_results.json` — individual answers, retrieved sources, and metric scores or errors.
+
+\- `evaluation\\\_summary.json` — aggregate evaluation metrics.
+
+\- `retry\\\_failed\\\_test.py` — retries failed evaluation cases.
+
+\- `rebuild\\\_summary.py` — rebuilds the summary from saved results.
+
+\- `evidence/` — screenshots documenting project tests and evaluation output.
+
+
+
+\### Limitations
+
+
+
+This is an educational prototype using a small document collection and a custom LLM-as-judge evaluator. Scores may vary with the judge model and its availability. The evaluation is not a formal RAGAS benchmark. Retrieval can include irrelevant passages, and additional tests are needed to assess robustness and improve retrieval quality.
 

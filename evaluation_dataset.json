@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "question": "Why are virtual environments useful in Python?",
+    "reference_answer": "They isolate project dependencies, help avoid version conflicts, and make project setups reproducible.",
+    "expected_sources": ["01_python_fundamentals.md"],
+    "answerable": true
+  },
+  {
+    "id": 2,
+    "question": "What is the difference between a list and a tuple in Python?",
+    "reference_answer": "A list is ordered and mutable, while a tuple is ordered and immutable.",
+    "expected_sources": ["02_data_structures_and_functions.md"],
+    "answerable": true
+  },
+  {
+    "id": 3,
+    "question": "What happens when a dictionary key is missing, and how can it be handled?",
+    "reference_answer": "Using mapping[key] raises KeyError if the key is absent. Use mapping.get(key) when a missing key is expected, or validate required keys explicitly.",
+    "expected_sources": ["02_data_structures_and_functions.md"],
+    "answerable": true
+  },
+  {
+    "id": 4,
+    "question": "What is the difference between a queue and a stack?",
+    "reference_answer": "A queue processes items in first-in, first-out order, while a stack processes items in last-in, first-out order.",
+    "expected_sources": ["02_data_structures_and_functions.md"],
+    "answerable": true
+  },
+  {
+    "id": 5,
+    "question": "What requirement does binary search have, and what is its typical time complexity?",
+    "reference_answer": "Binary search requires sorted data and has O(log n) time complexity because it halves the remaining search range at each step.",
+    "expected_sources": ["02_data_structures_and_functions.md"],
+    "answerable": true
+  },
+  {
+    "id": 6,
+    "question": "What does it mean that Python sorting is stable?",
+    "reference_answer": "Items with equal sort keys preserve their previous relative order.",
+    "expected_sources": ["02_data_structures_and_functions.md"],
+    "answerable": true
+  },
+  {
+    "id": 7,
+    "question": "How can a set help detect duplicate values in Python?",
+    "reference_answer": "Track previously seen values in a set. If a value is already present, it is a duplicate; otherwise, add it to the set.",
+    "expected_sources": ["02_data_structures_and_functions.md"],
+    "answerable": true
+  },
+  {
+    "id": 8,
+    "question": "What two things does a recursive function need to avoid endless recursion?",
+    "reference_answer": "It needs a base case and progress toward that base case.",
+    "expected_sources": ["02_data_structures_and_functions.md"],
+    "answerable": true
+  },
+  {
+    "id": 9,
+    "question": "Why should Python files often be opened using a with statement?",
+    "reference_answer": "A with block ensures the file is closed even if an error occurs.",
+    "expected_sources": ["03_files_errors_modules.md"],
+    "answerable": true
+  },
+  {
+    "id": 10,
+    "question": "How should API keys be stored and handled in a project?",
+    "reference_answer": "Use environment variables or a local .env file excluded from version control. Provide safe placeholders in .env.example and never expose real credentials.",
+    "expected_sources": ["03_files_errors_modules.md"],
+    "answerable": true
+  },
+  {
+    "id": 11,
+    "question": "Why can catching Exception across an entire application be problematic?",
+    "reference_answer": "It can hide defects and make debugging difficult. Catch specific exceptions when the program can meaningfully recover.",
+    "expected_sources": ["03_files_errors_modules.md"],
+    "answerable": true
+  },
+  {
+    "id": 12,
+    "question": "Why might scanned PDFs need OCR during document processing?",
+    "reference_answer": "Scanned PDFs may contain images instead of selectable text. OCR can extract text from those images, although it may introduce recognition errors.",
+    "expected_sources": ["03_files_errors_modules.md"],
+    "answerable": true
+  },
+  {
+    "id": 13,
+    "question": "What sensitive information should application logs avoid exposing?",
+    "reference_answer": "Logs should avoid passwords, access tokens, unnecessary personal data, and sensitive user content without a clear reviewed need.",
+    "expected_sources": ["03_files_errors_modules.md"],
+    "answerable": true
+  },
+  {
+    "id": 14,
+    "question": "What is retrieval-augmented generation (RAG)?",
+    "reference_answer": "RAG retrieves relevant passages from a supplied corpus and includes them in a language model prompt so the model can generate an answer based on that evidence.",
+    "expected_sources": ["04_testing_and_retrieval.md"],
+    "answerable": true
+  },
+  {
+    "id": 15,
+    "question": "What is the purpose of overlap between neighbouring document chunks?",
+    "reference_answer": "Overlap helps preserve context across chunk boundaries, but excessive overlap increases storage and can return near-duplicate passages.",
+    "expected_sources": ["04_testing_and_retrieval.md"],
+    "answerable": true
+  },
+  {
+    "id": 16,
+    "question": "How are an embedding model and a vector store different?",
+    "reference_answer": "An embedding model converts text into numeric vectors, while a vector store manages vector storage, metadata, and retrieval.",
+    "expected_sources": ["04_testing_and_retrieval.md"],
+    "answerable": true
+  },
+  {
+    "id": 17,
+    "question": "What are the trade-offs of choosing a low or high top-k value in retrieval?",
+    "reference_answer": "A low k may omit needed evidence, while a high k may add irrelevant context and consume prompt space.",
+    "expected_sources": ["04_testing_and_retrieval.md"],
+    "answerable": true
+  },
+  {
+    "id": 18,
+    "question": "What should a grounded RAG system do when retrieved evidence is insufficient?",
+    "reference_answer": "It should state that the information was not found instead of inventing details, and cite supporting sources when possible.",
+    "expected_sources": ["04_testing_and_retrieval.md"],
+    "answerable": true
+  },
+  {
+    "id": 19,
+    "question": "What is the internal codename used for the October evaluation in the CampusLab case study?",
+    "reference_answer": "The internal codename is Maple Finch.",
+    "expected_sources": ["05_campuslab_case_study.md"],
+    "answerable": true
+  },
+  {
+    "id": 20,
+    "question": "What is the real student ID of the first CampusLab participant?",
+    "reference_answer": "The information is not available. CampusLab is a fictional demonstration system with no real student accounts or actual personal records.",
+    "expected_sources": ["05_campuslab_case_study.md"],
+    "answerable": false
+  }
+]
